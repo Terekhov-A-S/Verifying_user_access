@@ -22,7 +22,7 @@
 
 1. Запустите приложение:
    ```bash
-   .\IMT_calc.exe
+   .\Verifying_user_access.exe
 \
 \
 \
