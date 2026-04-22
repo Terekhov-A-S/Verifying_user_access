@@ -6,12 +6,13 @@ func main() {
 	var age int64
 	var role, status string
 
-	getInput(age, role, status)
+	// Получаем входные данные и присваиваем их переменным
+	age, role, status = getInput()
 	fmt.Println(accessUser(age, role, status))
-
 }
 
-func getInput(int64, string, string) (int64, string, string) {
+// Функция возвращает полученные значения, не принимает параметров
+func getInput() (int64, string, string) {
 	var getAge int64
 	var getRole, getStatus string
 	fmt.Print("Введите возраст: ")
@@ -24,16 +25,21 @@ func getInput(int64, string, string) (int64, string, string) {
 }
 
 func accessUser(accessAge int64, accessRole string, accessStatus string) bool {
-	switch accessStatus {
-	case "active":
-		if accessRole == string("admin") {
-			return true
-		} else if accessRole == string("moderator") {
-			return true
-		} else if accessRole == "user" && accessAge >= 18 {
-			return true
-		}
+	// Проверяем, что роль допустима
+	if accessRole != "admin" && accessRole != "moderator" && accessRole != "user" {
+		return false
 	}
+
+	// Admin и moderator имеют доступ всегда
+	if accessRole == "admin" || accessRole == "moderator" {
+		return true
+	}
+
+	// Для user проверяем возраст и статус
+	if accessRole == "user" && accessStatus == "active" && accessAge >= 18 {
+		return true
+	}
+
 	return false
 }
 
